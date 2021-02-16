@@ -20,9 +20,9 @@ function mobileRemote(text) {
     if (isNaN(parseInt(item)) && register !== (item.toString().toUpperCase() === item ? 1 : 0)) {
       register = item.toString().toUpperCase() === item ? 1 : 0 // Если меняется регистр, меняем флаг
 
-      steps += stepAmount(currentCoords, [0, 4]) + 2
+      steps += stepAmount(currentCoords, [0, 3]) + 2
 
-      currentCoords = [0, 4]
+      currentCoords = [0, 3]
     }
 
     let i = item.toLowerCase()
@@ -65,4 +65,4 @@ function stepAmount(start, end) {
 console.log(mobileRemote('C'))  // 10
 console.log(mobileRemote('yandex'))  // 34
 console.log(mobileRemote('mobileremote'))  // 71
-
+console.log(mobileRemote('12345')) // 15
