@@ -20,7 +20,7 @@ function mobileRemote(text) {
     if (isNaN(parseInt(item)) && register !== (item.toString().toUpperCase() === item ? 1 : 0)) {
       register = item.toString().toUpperCase() === item ? 1 : 0 // Если меняется регистр, меняем флаг
 
-      steps += stepAmount(currentCoords, [0, 4]) + 1
+      steps += stepAmount(currentCoords, [0, 4]) + 2
 
       currentCoords = [0, 4]
     }
