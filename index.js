@@ -55,7 +55,7 @@ function stepAmount(start, end) {
     if (Math.abs(start[1] - end[1]) !== 2) {
       steps++
     } else {
-      steps = steps + 2
+      steps += 2
     }
   }
 
