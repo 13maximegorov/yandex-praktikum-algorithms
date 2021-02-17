@@ -34,6 +34,10 @@ function generateKeyboardMap() {
   }, {})
 }
 
+const WIDTH = 3
+const HEIGHT = 4
+
+// Функция подсчета количества кликов
 function getClicks(currentKey, nextKey) {
   const {x, y} = currentKey // Координаты текущей клавиши
   const {x: nextX, y: nextY, index} = nextKey // Координаты следующей клавиши и индекс выбранного символа
@@ -41,4 +45,51 @@ function getClicks(currentKey, nextKey) {
   // Количество кликов между клавишами по горизонтали и вертикали
   const dx = Math.abs(x - nextX)
   const dy = Math.abs(y - nextY)
+
+  return Math.min(dx, WIDTH - dx) + Math.min(dy, HEIGHT - dy) + index + 2
 }
+
+const START_KEY = '1'
+const CAPS_LOCK_KEY = '*'
+
+function mobileRemote(text) {
+  const path = text.split('')
+
+  // Генерация словаря с клавишами
+  const keyboardMap = generateKeyboardMap()
+
+  // Флаг, отвечающий за то, включен ли режим CAPS_LOCK
+  let isCapsLockMode = false
+
+  // Начало всегда с клавиши 1
+  let currentKey = START_KEY
+  let clicks = 0
+
+  path.forEach(rawKey => {
+    // Преобразование символа в нижний регистр
+    const key = rawKey.toLowerCase()
+
+    const inUpperCase = key !== rawKey
+    const isLetter = key !== key.toUpperCase()
+
+    if (isLetter && inUpperCase !== isCapsLockMode) {
+      clicks += getClicks(keyboardMap[currentKey], keyboardMap[CAPS_LOCK_KEY])
+      currentKey = CAPS_LOCK_KEY
+      isCapsLockMode = !isCapsLockMode
+    }
+
+    // Подсчет количества кликов
+    clicks += getClicks(keyboardMap[currentKey], keyboardMap[key])
+
+    // Ставим курсор на новую клавишу
+    currentKey = key
+  })
+
+  return clicks
+}
+
+console.log(mobileRemote('C'))  // 10
+console.log(mobileRemote('yandex'))  // 34
+console.log(mobileRemote('mobileremote'))  // 71
+console.log(mobileRemote('12345')) // 15
+console.log(mobileRemote('MobileRemote'))  // 87
