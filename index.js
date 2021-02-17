@@ -12,11 +12,13 @@ function mobileRemote(text) {
   ]
 
   let currentCoords = [0, 0]
+  let register = 0 // CAPS_LOCK
   let textArray = text.split('')
   let steps = 0
 
   textArray.forEach(item => {
-    if (isNaN(parseInt(item)) && item.toString().toUpperCase() === item) {
+    if (isNaN(parseInt(item)) && register !== (item.toString().toUpperCase() === item ? 1 : 0)) {
+      register = item.toString().toUpperCase() === item ? 1 : 0
       steps += stepAmount(currentCoords, [0, 3]) + 1 + 1
       currentCoords = [0, 3]
     }
