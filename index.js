@@ -63,3 +63,4 @@ console.log(mobileRemote('C'))  // 10
 console.log(mobileRemote('yandex'))  // 34
 console.log(mobileRemote('mobileremote'))  // 71
 console.log(mobileRemote('12345')) // 15
+console.log(mobileRemote('MobileRemote'))  // 87
