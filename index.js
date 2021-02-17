@@ -12,16 +12,12 @@ function mobileRemote(text) {
   ]
 
   let currentCoords = [0, 0]
-  let register = 0 // CapsLock
   let textArray = text.split('')
   let steps = 0
 
   textArray.forEach(item => {
-    if (isNaN(parseInt(item)) && register !== (item.toString().toUpperCase() === item ? 1 : 0)) {
-      register = item.toString().toUpperCase() === item ? 1 : 0 // Если меняется регистр, меняем флаг
-
-      steps += stepAmount(currentCoords, [0, 3]) + 2
-
+    if (isNaN(parseInt(item)) && item.toString().toUpperCase() === item) {
+      steps += stepAmount(currentCoords, [0, 3]) + 1 + 1
       currentCoords = [0, 3]
     }
 
@@ -39,6 +35,7 @@ function mobileRemote(text) {
 
     let targetCoords = [positionArray % 3, Math.floor(positionArray / 3)]
     steps += stepAmount(currentCoords, targetCoords) + 1 + positionLetter + 1
+    currentCoords = targetCoords
   })
 
   return steps
@@ -59,7 +56,7 @@ function stepAmount(start, end) {
     }
   }
 
-  return Number(steps)
+  return steps
 }
 
 console.log(mobileRemote('C'))  // 10
